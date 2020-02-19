@@ -7,4 +7,4 @@
 
 还在改进中。
 
-![image-20200220005844753](/Users/jiang/Documents/Github/CoolNERTool/img/image-20200220005844753.png)
+![](img/image-20200220005844753.png)
