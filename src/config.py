@@ -16,12 +16,12 @@ button_dict = {0: 'O无',
                }
 
 
-color_map={"O":"black",
-            "B-P":"blue","I-P":"blue",
-            "B-ORG":"green","I-ORG":"green",
-            "B-LOC":"DarkTurquoise","I-LOC":"DarkTurquoise",
-            "B-COM":"red","I-COM":"red"
-            }
+# color_map={"O":"black",
+#             "B-P":"#0000FF","I-P":"#0066FF",
+#             "B-ORG":"#00FF33","I-ORG":"#009933",
+#             "B-LOC":"#6600FF","I-LOC":"#6666FF",
+#             "B-COM":"#CC0033","I-COM":"#FF3366"
+#             }
 
 def get_sentence():
     sets = ['习近平感谢伊丽莎白二世女王和约翰逊对中方抗击新冠肺炎疫情的慰问。', '习近平指出，英方为我们抗击疫情提供了物资支持，这体现了中英两国和两国人民的友好情谊。']

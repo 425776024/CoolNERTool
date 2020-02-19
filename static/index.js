@@ -5,11 +5,12 @@ labeling_dict=[]
 text=''
 //富文本显示构造文本
 
+
 color_map={"O":"black",
-            "B-P":"blue","I-P":"blue",
-            "B-ORG":"green","I-ORG":"green",
-            "B-LOC":"DarkTurquoise","I-LOC":"DarkTurquoise",
-            "B-COM":"red","I-COM":"red"
+            "B-P":"#0000FF","I-P":"#00CCFF",
+            "B-ORG":"#00FF33","I-ORG":"#009933",
+            "B-LOC":"#660099","I-LOC":"#666699",
+            "B-COM":"red","I-COM":"#CC3300"
             }
 
 
@@ -71,8 +72,8 @@ function dell_selected(code,start,end){
         INNER_TAG="I-LOC"
     }
     if (code==52){
-        HEAD_TAG="B-COMPANY"
-        INNER_TAG="I-COMPANY"
+        HEAD_TAG="B-COM"
+        INNER_TAG="I-COM"
     }
     console.log(HEAD_TAG+":"+INNER_TAG)
     for (var i=start;i<=end;i++){
