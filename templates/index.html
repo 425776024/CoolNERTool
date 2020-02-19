@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NER标注</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <script src="/static/index.js"></script>
+</head>
+<body>
+<h1> {{ title }}</h1>
+<!--显示按钮，没有任何实际作用-->
+<div style="align:left;">
+    按键提示：
+    {% for k,v in button_dict.items() %}
+    <button class="sty_button">{{k}}（{{v}}）</button>
+    {% endfor %}
+</div>
+<!--基于需求继续增加-->
+<hr>
+
+<div style="align:left;">
+    操作按钮：
+    <button id="pre_button" class="sty_button">往前 <</button>
+    <button id="save_button" class="sty_button" onclick="save_button_func()">保存</button>
+    <button id="back_button" class="sty_button">往后 ></button>
+    <button id="test_button" class="sty_button">test</button>
+</div>
+<hr>
+<p id="cur_idx" style="display:none">{{cur}}</p>
+<p id="label_sen" style="display:none">{{label_sen}}</p>
+<center style="font-size:50px;">{{cur}}/{{all_num}}</center>
+<hr>
+<pre id="text" class="sentence">{{text}}</pre>
+<br/>
+<hr/>
+<pre id="show" class="sentence"></pre>
+</body>
+</html>
