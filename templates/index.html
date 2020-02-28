@@ -20,15 +20,15 @@
 
 <div style="align:left;">
     操作按钮：
-    <button id="pre_button" class="sty_button">往前 <</button>
+    <button id="pre_button" class="sty_button" onclick="pre_button_func()">往前 <</button>
     <button id="save_button" class="sty_button" onclick="save_button_func()">保存</button>
-    <button id="back_button" class="sty_button">往后 ></button>
+    <button id="back_button" class="sty_button" onclick="back_button_func()">往后 ></button>
     <button id="test_button" class="sty_button">test</button>
 </div>
 <hr>
 <p id="cur_idx" style="display:none">{{cur}}</p>
 <p id="label_sen" style="display:none">{{label_sen}}</p>
-<center style="font-size:50px;">{{cur}}/{{all_num}}</center>
+<center style="font-size:50px;">{{cur+1}}/{{all_num}}</center>
 <hr>
 <pre id="text" class="sentence">{{text}}</pre>
 <br/>

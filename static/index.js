@@ -125,6 +125,28 @@ function re_show_text(elem,html_text){
     elem.innerHTML=html_text;
 }
 
+function back_button_func(){
+    cur_idx=document.getElementById("cur_idx").innerText;
+    cur_idx=parseInt(cur_idx);
+    next_idx=cur_idx+1;
+    host = window.location.host;
+    url='http://'+host+'/labeling/'+next_idx;
+    console.log(url)
+    window.location.href = url;
+}
+
+function pre_button_func(){
+    cur_idx=document.getElementById("cur_idx").innerText;
+    cur_idx=parseInt(cur_idx);
+    next_idx=cur_idx-1;
+    if (next_idx<0){
+        next_idx=0;
+    }
+    host = window.location.host;
+    url='http://'+host+'/labeling/'+next_idx;
+    console.log(url)
+    window.location.href = url;
+}
 function save_button_func(){
 //根据labeling_dict构造提交文本
     console.log(labeling_dict)

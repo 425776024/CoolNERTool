@@ -19,8 +19,7 @@ util = Util(get_sentence())
 
 @app.route('/')
 def index():
-    senetnce, label_sen = util.get_sentence(0)
-    return _page('index.html', cur=0, all_num=util.all_num, text=senetnce, label_sen=label_sen)
+    return redirect("/labeling/0")
 
 
 @app.route('/labeling/<int:idx>')
