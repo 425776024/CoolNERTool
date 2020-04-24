@@ -9,10 +9,19 @@ text=''
 color_map={"O":"black",
             "B-P":"#0000FF","I-P":"#00CCFF",
             "B-ORG":"#00FF33","I-ORG":"#009933",
-            "B-LOC":"#660099","I-LOC":"#666699",
-            "B-COM":"red","I-COM":"#CC3300"
+            "B-LOC":"#660099","I-LOC":"#666699"
             }
 
+
+keyword_code=75
+keyword_list=[]
+
+key_code = {
+    48:['O','O'],
+    49:['B-P','I-P'],
+    50:['B-ORG','I-ORG'],
+    51:['B-LOC','I-LOC']
+}
 
 window.onload = function(){
 
@@ -35,17 +44,16 @@ document.onkeydown=function(event){
 
     select_ele=sel.anchorNode.parentElement;
     select_txt_id=select_ele['id'];
+    if (key_code==32){
+        save_button_func();
+        return;
+    }
+
     if (select_txt_id == "text"){
-
-        console.log(e.keyCode+':'+getSelectText());
-        console.log(sel);
-
         ele_start=sel.anchorOffset
         ele_end=sel.extentOffset
         start=Math.min(ele_start,ele_end)
         end=Math.max(ele_start,ele_end) -1
-
-        console.log(text[start]+'-'+text[end])
         dell_selected(e && e.keyCode,start,end)
     }
 };
@@ -53,29 +61,10 @@ document.onkeydown=function(event){
 
 function dell_selected(code,start,end){
     //0:48  1:49    2:50    3:51    4:52
-    console.log(start+'-'+end)
-    TAG="O"
-    if (code==48){
-        HEAD_TAG="O"
-        INNER_TAG="O"
+    if (code in key_code){
+        HEAD_TAG=key_code[code][0];
+        INNER_TAG=key_code[code][0];
     }
-    if (code==49){
-        HEAD_TAG="B-P"
-        INNER_TAG="I-P"
-    }
-    if (code==50){
-        HEAD_TAG="B-ORG"
-        INNER_TAG="I-ORG"
-    }
-    if (code==51){
-        HEAD_TAG="B-LOC"
-        INNER_TAG="I-LOC"
-    }
-    if (code==52){
-        HEAD_TAG="B-COM"
-        INNER_TAG="I-COM"
-    }
-    console.log(HEAD_TAG+":"+INNER_TAG)
     for (var i=start;i<=end;i++){
         if (i==start){
             labeling_dict[i]=HEAD_TAG
@@ -127,19 +116,11 @@ function re_show_text(elem,html_text){
 
 function back_button_func(){
     cur_idx=document.getElementById("cur_idx").innerText;
+    all_num=document.getElementById("all_num").innerText;
     cur_idx=parseInt(cur_idx);
+    all_num=parseInt(all_num);
     next_idx=cur_idx+1;
-    host = window.location.host;
-    url='http://'+host+'/labeling/'+next_idx;
-    console.log(url)
-    window.location.href = url;
-}
-
-function pre_button_func(){
-    cur_idx=document.getElementById("cur_idx").innerText;
-    cur_idx=parseInt(cur_idx);
-    next_idx=cur_idx-1;
-    if (next_idx<0){
+    if (next_idx<0 || next_idx>=all_num){
         next_idx=0;
     }
     host = window.location.host;
@@ -147,9 +128,24 @@ function pre_button_func(){
     console.log(url)
     window.location.href = url;
 }
+
+function pre_button_func(){
+
+    cur_idx=document.getElementById("cur_idx").innerText;
+    all_num=document.getElementById("all_num").innerText;
+    cur_idx=parseInt(cur_idx);
+    all_num=parseInt(all_num);
+
+    next_idx=cur_idx-1;
+    if (next_idx<0 || next_idx>=all_num){
+        next_idx=0;
+    }
+    host = window.location.host;
+    url='http://'+host+'/labeling/'+next_idx;
+    window.location.href = url;
+}
 function save_button_func(){
 //根据labeling_dict构造提交文本
-    console.log(labeling_dict)
     tp_lab_text=''
     for (var i=0;i<text.length;i++){
         if (i in labeling_dict){
@@ -164,7 +160,6 @@ function save_button_func(){
         }
     }
     cur_idx=document.getElementById("cur_idx").innerText;
-    console.log(cur_idx+':'+tp_lab_text);
     post('/submit_labling',{"lab_text":tp_lab_text,'token_size':text.length,'cur_idx':cur_idx})
 
 }

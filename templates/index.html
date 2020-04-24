@@ -8,14 +8,10 @@
 </head>
 <body>
 <h1> {{ title }}</h1>
-<!--显示按钮，没有任何实际作用-->
-<div style="align:left;">
-    按键提示：
-    {% for k,v in button_dict.items() %}
-    <button class="sty_button">{{k}}（{{v}}）</button>
-    {% endfor %}
-</div>
-<!--基于需求继续增加-->
+<a class="sty_button">0（O 清除）</a>
+<a class="sty_button">1（P 人物）</a>
+<a class="sty_button">2（ORG 组织）</a>
+<a class="sty_button">3（LOC 地址）</a>
 <hr>
 
 <div style="align:left;">
@@ -23,12 +19,13 @@
     <button id="pre_button" class="sty_button" onclick="pre_button_func()">往前 <</button>
     <button id="save_button" class="sty_button" onclick="save_button_func()">保存</button>
     <button id="back_button" class="sty_button" onclick="back_button_func()">往后 ></button>
-    <button id="test_button" class="sty_button">test</button>
+    <a href="/static/{{dpath}}/{{cur_idx}}.txt" download="">点击下载：{{cur_idx}}/{{all_num}}</a>
 </div>
 <hr>
-<p id="cur_idx" style="display:none">{{cur}}</p>
+<p id="cur_idx" style="display:none">{{cur_idx}}</p>
+<p id="all_num" style="display:none">{{all_num}}</p>
 <p id="label_sen" style="display:none">{{label_sen}}</p>
-<center style="font-size:50px;">{{cur+1}}/{{all_num}}</center>
+
 <hr>
 <pre id="text" class="sentence">{{text}}</pre>
 <br/>

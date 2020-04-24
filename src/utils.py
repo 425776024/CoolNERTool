@@ -8,54 +8,47 @@
 
 
 import os.path
+from config import data_write
 
-
-# self.sets_labeling = [''] * len(sentence_arr)
-# sets = ['习近平感谢伊丽莎白二世女王和约翰逊对中方抗击新冠肺炎疫情的慰问。', '习近平指出，英方为我们抗击疫情提供了物资支持，这体现了中英两国和两国人民的友好情谊。']
 
 class Util:
     # sets_labeling = [''] * len(sets)
-    def __init__(self, sentence_arr):
-        self.write_path = 'data/write/'
-        self.sentence_arr = sentence_arr
-        self.all_num = len(sentence_arr)
-        self.sentence_labeling_arr = [[]] * self.all_num
-        self.load_labeling()
+    def __init__(self):
+        self.write_path = data_write
+        self.sentence_map = {}
+        self.sentence_labeling_map = {}
+        self.load_path_data()
 
-    def _get_sentence(self, idx):
-        sentence = self.sentence_arr[idx]
-        senetnce = str(sentence.replace(' ', ''))
-        return senetnce
+    def load_path_data(self):
+        for name in os.listdir(self.write_path):
+            idx = int(name.split('.')[0])
+            f_name = os.path.join(self.write_path, name)
+            token_arr, tag_arr = get_txt(f_name, return_token=True)
+            sentence = ''.join(token_arr)
+            self.sentence_map[idx] = sentence
+            self.sentence_labeling_map[idx] = tag_arr
 
     def get_sentence(self, idx):
-        sentence = self.sentence_arr[idx]
-        senetnce = str(sentence.replace(' ', ''))
-        return senetnce, ' '.join(self.sentence_labeling_arr[idx])
-
-    def load_labeling(self):
-        self.sentence_labeling_arr = [[]] * self.all_num
-        for i in range(self.all_num):
-            self.sentence_labeling_arr[i] = self.get_labeling(i)
+        if idx < 0 or idx > len(self.sentence_map) - 1:
+            idx = 0
+        sentence = self.sentence_map[idx]
+        return sentence, ' '.join(self.get_labeling(idx))
 
     def get_labeling(self, idx):
-        if not os.path.isfile(self.get_path(idx)):
-            lab_arr = len(self._get_sentence(idx)) * ['O']
-            self._set_labeling_arr(idx, lab_arr)
-            return lab_arr
-        else:
-            return get_txt(self.get_path(idx))
+        return self.sentence_labeling_map[idx]
 
-    def _set_labeling_arr(self, idx, arr):
-        self.sentence_labeling_arr[idx] = arr
-        write(self.sentence_arr[idx], self.sentence_labeling_arr[idx], self.get_path(idx))
+    def set_labeling_arr(self, idx, arr):
+        self.sentence_labeling_map[idx] = arr
+        write(self.sentence_map[idx], arr, self.get_path(idx))
 
     def get_path(self, idx):
-        return self.write_path + str(idx) + '.txt'
+        return os.path.join(self.write_path, str(idx) + '.txt')
 
 
-def get_txt(path):
+def get_txt(path, return_token=False):
     with open(path, mode='r') as file:
         tag_arr = []
+        token_arr = []
         for line in file.readlines():
             line = line.replace('\n', '')
             line_arr = line.split('\t')
@@ -63,6 +56,9 @@ def get_txt(path):
                 token = line_arr[0]
                 tag = line_arr[1]
                 tag_arr.append(tag)
+                token_arr.append(token)
+        if return_token:
+            return token_arr, tag_arr
         return tag_arr
 
 

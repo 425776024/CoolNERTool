@@ -7,14 +7,14 @@
 # @Software: PyCharm
 
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect
 
-from src.config import button_dict, title, get_sentence
+from config import title, dpath
 from src.utils import Util
 
 app = Flask(__name__)
 
-util = Util(get_sentence())
+util = Util()
 
 
 @app.route('/')
@@ -25,7 +25,7 @@ def index():
 @app.route('/labeling/<int:idx>')
 def labeling(idx):
     senetnce, label_sen = util.get_sentence(idx)
-    return _page('index.html', cur=idx, all_num=util.all_num, text=senetnce, label_sen=label_sen)
+    return _page('index.html', cur_idx=idx, all_num=len(util.sentence_map), text=senetnce, label_sen=label_sen, dpath=dpath)
 
 
 @app.route('/submit_labling', methods=("GET", "POST"))
@@ -43,12 +43,12 @@ def submit_labling():
         cur_idx = int(cur_idx)
         lab_token_arr = lab_text.split(' ')
         lab_token_arr = lab_token_arr[:token_size]
-        util._set_labeling_arr(cur_idx, lab_token_arr)
+        util.set_labeling_arr(cur_idx, lab_token_arr)
         return redirect('/labeling/' + str(cur_idx))
 
 
 def _page(page='index.html', **kwargs):
-    return render_template(page, title=title, button_dict=button_dict, **kwargs)
+    return render_template(page, title=title, **kwargs)
 
 
 if __name__ == '__main__':
