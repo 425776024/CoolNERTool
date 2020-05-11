@@ -6,15 +6,13 @@ text=''
 //富文本显示构造文本
 
 
+keyword_list=[]
+
 color_map={"O":"black",
             "B-P":"#0000FF","I-P":"#00CCFF",
             "B-ORG":"#00FF33","I-ORG":"#009933",
             "B-LOC":"#660099","I-LOC":"#666699"
             }
-
-
-keyword_code=75
-keyword_list=[]
 
 key_code = {
     48:['O','O'],
