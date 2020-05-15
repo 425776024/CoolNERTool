@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NER标注</title>
+    <script src="/static/vue.min.js"></script>
+    <script src="/static/axios_min.js"></script>
+</head>
+<body>
+<h1> {[message]} </h1>
+<div id="edit">
+    <h3>编辑：{{idx}}.txt</h3>
+    <textarea style="width:500px;min-height: 80px; " v-model="senetnce"></textarea>
+    <button @click="save_sent">保存</button>
+
+</div>
+
+
+<script type="text/javascript">
+
+var edit_div = new Vue({
+        el: '#edit',
+        data:{
+            senetnce:{[senetnce|tojson]},
+            idx:{[idx]}
+        },
+        methods: {
+            save_sent: function(event) {
+<!--                alert(this.senetnce);-->
+                axios.put('/{[updatelablingurl]}', {
+                    "senetnce":this.senetnce,
+                    'idx':this.idx,
+                    'label_sen_arr':null
+                  })
+                  .then(function (response) {
+                    console.log(response.data.idx);
+                    host = window.location.host;
+                    url='http://'+host+'/'+response.data.labelingurl+'/'+response.data.idx;
+                    window.location.href = url;
+
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

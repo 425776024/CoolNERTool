@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>NER标注</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <script src="/static/vue.min.js"></script>
+    <script src="/static/axios_min.js"></script>
+</head>
+<body>
+<h2 align="left"> NER 命名实体标注工具</h2>
+<button><a href="/" >Home🏠</a></button>
+||
+<button><a href="/static/{[data['dpath']]}/{[data['idx']]}.txt" download="">点击下载：{[data['idx']]}.txt 共({[data['all_num']]})</a></button>
+||
+<button><a href="/editfile/{[data['idx']]}" >编辑{[data['idx']]}.txt</a></button>
+<br/>
+<br/>
+<br/>
+<div id="head1" align="center">
+    <button v-for="tif in taginfo" class="sty_button" @click="set_tag(tif.tag)" :style="{color:tif.tagcolor}">{{tif.name}}</button>
+    <h3 align="center">{{select_TAG}}</h3>
+</div>
+<div id="senetnce">
+    <p v-for="n in senetnce_tag_list" :class="n[1]" :style='{color:n[2]}' style="font-size:20px"
+    @click="click_func(n[3],n[1])">
+        {{n[0]}}
+    </p>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id="head2" align="center">
+    <button v-on:click="pre_button_func" class="sty_button">往前 <</button>
+    <button v-on:click="save_button_func" class="sty_button">保存</button>
+    <button v-on:click="back_button_func" class="sty_button">往后 ></button>
+</div>
+
+
+<script type="text/javascript">
+idx = {[data['idx']]}|0;
+all_num = {[data['all_num']]};
+
+senetnce='';
+label_sen_arr=[];
+
+key_code = {[data['tag_key_code_mapping']|tojson]};
+tag_color_mapping = {[data['tag_color_mapping']|tojson]};
+var head1 = new Vue({
+        el: '#head1',
+        data:{
+            taginfo:{[data['taginfo']|tojson]},
+            select_TAG :"O"
+        },
+        methods: {
+            set_tag: function(tag) {
+                this.select_TAG=tag;
+                sentence_text.click_start_end = [-1,-1];
+            }
+        }
+    });
+
+var head2 = new Vue({
+        el: '#head2',
+        data:{
+            dpath:{[data['dpath']|tojson]}
+        },
+        methods: {
+            save_button_func: function(event) {
+<!--                alert(label_sen_arr);-->
+                axios.put('/{[data['updatelablingurl']]}', {
+                    "label_sen_arr":label_sen_arr,
+                    "senetnce_arr":null,
+                    'idx':idx
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+            },
+            back_button_func:function(event){
+                next_idx=idx+1;
+                if (next_idx<0 || next_idx>=all_num){
+                    next_idx=0;
+                }
+                host = window.location.host;
+                url='http://'+host+'/{[data['labelingurl']]}/'+next_idx;
+                console.log(url)
+                window.location.href = url;
+            },
+            pre_button_func:function(event){
+                next_idx=idx-1;
+                if (next_idx<0 || next_idx>=all_num){
+                    next_idx=0;
+                }
+                host = window.location.host;
+                url='http://'+host+'/{[data['labelingurl']]}/'+next_idx;
+                window.location.href = url;
+            }
+        }
+    });
+
+
+var sentence_text = new Vue({
+        el: '#senetnce',
+        data:{
+            senetnce_tag_list:{[data['senetnce_tag_list']|tojson]},
+            click_start_end:[-1,-1]
+        },
+        methods: {
+            click_func:function (idx,tag) {
+                select_TAG = head1.select_TAG;
+<!--                alert(select_TAG+this.click_start_end);-->
+                t_color = tag_color_mapping[select_TAG];
+                TAG="O";
+                if(this.click_start_end[0] == -1){
+                    if(select_TAG != "O"){
+                         TAG = "B-"+select_TAG;
+                    }
+                    this.click_start_end[0] = idx;
+                    label_sen_arr[idx]=TAG;
+                    this.$el.childNodes[idx].className = TAG;
+                    this.$el.childNodes[idx].style.color = t_color;
+                    return;
+                }
+                if(this.click_start_end[0] != -1){
+                    this.click_start_end[1] = idx;
+                    start_idx=Math.min(this.click_start_end[0],this.click_start_end[1]);
+                    end_idx=Math.max(this.click_start_end[0],this.click_start_end[1]);
+                    for (var i=start_idx;i<=end_idx;i++){
+                        TAG="O";
+                        if(select_TAG != "O"){
+                            if (i==start_idx){
+                                TAG = "B-"+select_TAG;
+                            }else{
+                                TAG = "I-"+select_TAG;
+                            }
+                        }
+
+                        label_sen_arr[i]=TAG;
+                        this.$el.childNodes[i].className = TAG;
+                        this.$el.childNodes[i].style.color = t_color;
+                    }
+                    this.click_start_end = [-1,-1];
+                }
+            }
+  }
+});
+senetnce=""
+senetnce_arr=[];
+label_sen_arr=[];
+
+
+for (var i=0;i<sentence_text.senetnce_tag_list.length;i++){
+    si=sentence_text.senetnce_tag_list[i][0];
+    l_si=sentence_text.senetnce_tag_list[i][1];
+    senetnce_arr.push(si)
+    label_sen_arr.push(l_si)
+    senetnce+=si;
+}
+
+<!--遍历子节点-->
+<!--for (var i=0;i<sentence_text.$el.childNodes.length;i++){-->
+<!--    ppi=sentence_text.$el.childNodes[i];-->
+<!--    console.log(i+'：'+ppi.className);-->
+<!--    console.log('span：'+ppi.childNodes[0].innerText);-->
+<!--};-->
+
+
+</script>
+</body>
+</html>
