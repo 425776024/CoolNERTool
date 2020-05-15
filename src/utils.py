@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2020/2/19 9:57 PM
-# @Author  : xinfa.jiang
-# @Site    : 
-# @File    : utils.py
-# @Software: PyCharm
 
 
 import os.path
@@ -12,7 +7,6 @@ from config import data_write
 
 
 class Util:
-    # sets_labeling = [''] * len(sets)
     def __init__(self):
         self.write_path = data_write
         self.sentence_map = {}
@@ -32,14 +26,16 @@ class Util:
         if idx < 0 or idx > len(self.sentence_map) - 1:
             idx = 0
         sentence = self.sentence_map[idx]
-        return sentence, ' '.join(self.get_labeling(idx))
+        return sentence, self.get_labeling(idx)
 
     def get_labeling(self, idx):
         return self.sentence_labeling_map[idx]
 
-    def set_labeling_arr(self, idx, arr):
-        self.sentence_labeling_map[idx] = arr
-        write(self.sentence_map[idx], arr, self.get_path(idx))
+    def set_labeling_arr(self, idx, lab_arr, senetnce=None):
+        self.sentence_labeling_map[idx] = lab_arr
+        if senetnce is not None:
+            self.sentence_map[idx] = senetnce
+        write(self.sentence_map[idx], lab_arr, self.get_path(idx))
 
     def get_path(self, idx):
         return os.path.join(self.write_path, str(idx) + '.txt')
@@ -62,7 +58,7 @@ def get_txt(path, return_token=False):
         return tag_arr
 
 
-def write(sent, label_ing, path):
+def write(sent: list, label_ing: list, path: str):
     with open(path, mode='w') as file:
         for i, lb in enumerate(label_ing):
             token = sent[i]

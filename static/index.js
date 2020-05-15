@@ -1,45 +1,6 @@
-
-
-labeling_dict=[]
-//标注文本
-text=''
-//富文本显示构造文本
-
-
-keyword_list=[]
-
-color_map={"O":"black",
-            "B-P":"#0000FF","I-P":"#00CCFF",
-            "B-ORG":"#00FF33","I-ORG":"#009933",
-            "B-LOC":"#660099","I-LOC":"#666699"
-            }
-
-key_code = {
-    48:['O','O'],
-    49:['B-P','I-P'],
-    50:['B-ORG','I-ORG'],
-    51:['B-LOC','I-LOC']
-}
-
-window.onload = function(){
-
-    text=document.getElementById("text").innerText;
-    label_sen_txt=document.getElementById("label_sen").innerText;
-
-    labeling_dict=label_sen_txt.split(' ')
-    console.log(labeling_dict);
-    flush();
-    console.log(text[0])
-    console.log(text)
-    console.log(text.length)
-    console.log(text[text.length-1])
-
-}
-
 document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
-    sel=getSelect();
-
+    let sel = document.getSelection();
     select_ele=sel.anchorNode.parentElement;
     select_txt_id=select_ele['id'];
     if (key_code==32){
@@ -112,36 +73,6 @@ function re_show_text(elem,html_text){
     elem.innerHTML=html_text;
 }
 
-function back_button_func(){
-    cur_idx=document.getElementById("cur_idx").innerText;
-    all_num=document.getElementById("all_num").innerText;
-    cur_idx=parseInt(cur_idx);
-    all_num=parseInt(all_num);
-    next_idx=cur_idx+1;
-    if (next_idx<0 || next_idx>=all_num){
-        next_idx=0;
-    }
-    host = window.location.host;
-    url='http://'+host+'/labeling/'+next_idx;
-    console.log(url)
-    window.location.href = url;
-}
-
-function pre_button_func(){
-
-    cur_idx=document.getElementById("cur_idx").innerText;
-    all_num=document.getElementById("all_num").innerText;
-    cur_idx=parseInt(cur_idx);
-    all_num=parseInt(all_num);
-
-    next_idx=cur_idx-1;
-    if (next_idx<0 || next_idx>=all_num){
-        next_idx=0;
-    }
-    host = window.location.host;
-    url='http://'+host+'/labeling/'+next_idx;
-    window.location.href = url;
-}
 function save_button_func(){
 //根据labeling_dict构造提交文本
     tp_lab_text=''
@@ -159,7 +90,6 @@ function save_button_func(){
     }
     cur_idx=document.getElementById("cur_idx").innerText;
     post('/submit_labling',{"lab_text":tp_lab_text,'token_size':text.length,'cur_idx':cur_idx})
-
 }
 
 function post(URL, PARAMS) {
