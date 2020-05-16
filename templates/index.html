@@ -11,31 +11,28 @@
 <h2 align="left"> NER 命名实体标注工具</h2>
 <button><a href="/" >Home🏠</a></button>
 ||
-<button><a href="/static/{[data['dpath']]}/{[data['idx']]}.txt" download="">点击下载：{[data['idx']]}.txt 共({[data['all_num']]})</a></button>
+<button><a href="/static/{[data['dpath']]}/{[data['idx']]}.txt" download="">点击下载：{[data['idx']]}.txt</a></button>
 ||
 <button><a href="/editfile/{[data['idx']]}" >编辑{[data['idx']]}.txt</a></button>
-<br/>
-<hr/>
-<br/>
+
 <div id="head1" align="center">
-    <button v-for="tif in taginfo" class="sty_button" @click="set_tag(tif.tag)" :style="{color:tif.tagcolor}">{{tif.name}}</button>
+    <h2>{[data['idx']]} / {[data['all_num']]}</h2>
     <h3 align="center">{{select_TAG}}</h3>
+    <button v-for="tif in taginfo" class="sty_button" @click="set_tag(tif.tag)" :style="{color:tif.tagcolor}">
+        {{tif.name}}
+    </button>
 </div>
-<hr/>
-<br/>
+
+
 <div id="senetnce">
-    <p v-for="n in senetnce_tag_list" :class="n[1]" :style='{color:n[2]}' style="font-size:20px"
-    @click="click_func(n[3],n[1])">
+    <p v-for="n in senetnce_tag_list" :class="n[1]" :style='{color:n[2]}' @click="click_func(n[3],n[1])">
         {{n[0]}}
     </p>
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<hr/>
-<br/>
-<div id="head2" align="center">
+<!--s时时-->
+
+
+<div id="head2" align="center" style="float:center;clear:both">
     <button v-on:click="pre_button_func" class="sty_button">往前 <</button>
     <button v-on:click="back_button_func" class="sty_button">往后 ></button>
 </div>
