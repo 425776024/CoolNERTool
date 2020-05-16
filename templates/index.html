@@ -15,12 +15,14 @@
 ||
 <button><a href="/editfile/{[data['idx']]}" >编辑{[data['idx']]}.txt</a></button>
 <br/>
-<br/>
+<hr/>
 <br/>
 <div id="head1" align="center">
     <button v-for="tif in taginfo" class="sty_button" @click="set_tag(tif.tag)" :style="{color:tif.tagcolor}">{{tif.name}}</button>
     <h3 align="center">{{select_TAG}}</h3>
 </div>
+<hr/>
+<br/>
 <div id="senetnce">
     <p v-for="n in senetnce_tag_list" :class="n[1]" :style='{color:n[2]}' style="font-size:20px"
     @click="click_func(n[3],n[1])">
@@ -31,11 +33,10 @@
 <br/>
 <br/>
 <br/>
-<br/>
+<hr/>
 <br/>
 <div id="head2" align="center">
     <button v-on:click="pre_button_func" class="sty_button">往前 <</button>
-    <button v-on:click="save_button_func" class="sty_button">保存</button>
     <button v-on:click="back_button_func" class="sty_button">往后 ></button>
 </div>
 
@@ -68,8 +69,7 @@ var head2 = new Vue({
             dpath:{[data['dpath']|tojson]}
         },
         methods: {
-            save_button_func: function(event) {
-<!--                alert(label_sen_arr);-->
+            save_func: function(event) {
                 axios.put('/{[data['updatelablingurl']]}', {
                     "label_sen_arr":label_sen_arr,
                     "senetnce_arr":null,
@@ -104,7 +104,6 @@ var head2 = new Vue({
         }
     });
 
-
 var sentence_text = new Vue({
         el: '#senetnce',
         data:{
@@ -114,7 +113,6 @@ var sentence_text = new Vue({
         methods: {
             click_func:function (idx,tag) {
                 select_TAG = head1.select_TAG;
-<!--                alert(select_TAG+this.click_start_end);-->
                 t_color = tag_color_mapping[select_TAG];
                 TAG="O";
                 if(this.click_start_end[0] == -1){
@@ -147,6 +145,7 @@ var sentence_text = new Vue({
                     }
                     this.click_start_end = [-1,-1];
                 }
+                head2.save_func();
             }
   }
 });
