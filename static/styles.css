@@ -1,6 +1,14 @@
 
-.sentence{
-    font-size:25px;
+#senetnce{
+    clear:both;
+
+
+}
+
+#senetnce p{
+        font-size:20px;
+        float: left;
+        display:inline-block;
 }
 
 .sty_button{
