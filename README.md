@@ -1,17 +1,14 @@
 # [CoolNERTool](https://github.com/425776024/CoolNERTool)
 
-自行设计的实体标注工具，基于Vue + python的fastAPI
+Chrome浏览器端端NER实体标注工具，基于Vue + python的fastAPI
+- 1.可多人协作共同标注
+- 2.支持模型预标注：读取/写入文件完全一致
+- 3.```static/write ```下的是NER数据文件（给出案例），可自己修改
+- 4.可以拿模型预测的BIO数据作为输入
 
-A NER Labeling Tool , base on Vue + python's fastAPI
 
-- ```static/write ```下的是NER数据文件，可自己修改
-- 支持模型预标注：读取/写入文件完全一致
-- 可以拿模型预测的BIO数据作为输入
-
-## 使用截图
-- 1.选择上排按钮，点击选择
-- 2.对中排文字，选择NER实体，点击【选择头一个字和尾一个字】，实体会对应高亮
-![](img/help_img.jpg)
+## 配置 config
+编辑 `/info_config.json`内含有详细案例
 
 ## 运行 run
 ```shell
@@ -20,9 +17,16 @@ pip install requirements.txt
 ```shell
 python run.py
 ```
+## 主界面
+![](img/home.png)
 
-## 配置 config
-`编辑 info_config.json`
+## 标注界面
+- 1.选择上排按钮，点击选择标签
+- 2.对中排文字，选择NER实体，点击【选择头一个字和尾一个字】，实体会对应高亮
+- 3.无需手动保存，时时自动同步到static/write目录下
+![](img/help_img.png)
+
+
 
 ## 使用说明
 运行后查看首页的[使用帮助]链接
