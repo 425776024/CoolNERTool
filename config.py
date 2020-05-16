@@ -16,7 +16,6 @@ dpath = "write"
 json_path = os.path.join(root_path, "info_config.json")
 json_config = get_json(json_path)
 tag_name = json_config['config']['tag_name']
-tag_key_code_mapping = json_config['config']['tag_key_code_mapping']
 tag_color_mapping = json_config['config']['tag_color_mapping']
 
 data_write = os.path.join(data_path, dpath)

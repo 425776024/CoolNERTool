@@ -1,7 +1,6 @@
 {
   "descrip": {
     "tag_name": "标签名称",
-    "tag_key_code_mapping": "tag对应的键盘按键，如 按0字母清除，0字母对应key_code:48",
     "tag_color_mapping": "tag的展示颜色",
     "PS": "顺序一致"
   },
@@ -12,12 +11,6 @@
       ["ORG","ORG组织"],
       ["LOC","LOC地址"]
     ],
-    "tag_key_code_mapping": {
-      "O": 48,
-      "P": 49,
-      "ORG": 50,
-      "LOC": 51
-    },
     "tag_color_mapping": {
       "O": "black",
       "P": "#0000FF",

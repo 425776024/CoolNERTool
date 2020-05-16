@@ -37,7 +37,6 @@ var edit_div = new Vue({
                     host = window.location.host;
                     url='http://'+host+'/'+response.data.labelingurl+'/'+response.data.idx;
                     window.location.href = url;
-
                   })
                   .catch(function (error) {
                     console.log(error);

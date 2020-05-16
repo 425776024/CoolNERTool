@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import List
-from config import dpath, taginfo, tag_key_code_mapping, tag_color_mapping
+from config import dpath, taginfo, tag_color_mapping
 from src.utils import Util
 
 app = FastAPI()
@@ -62,7 +62,6 @@ async def labeling(request: Request, idx: int = 0):
         'senetnce_tag_list': senetnce_tag_list,
         'dpath': dpath,
         'taginfo': taginfo,
-        'tag_key_code_mapping': tag_key_code_mapping,
         'tag_color_mapping': tag_color_mapping,
         'labelingurl': 'getlabeling',
         'updatelablingurl': 'updatelabling'
