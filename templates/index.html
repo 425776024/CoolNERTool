@@ -123,6 +123,7 @@ var sentence_text = new Vue({
                     label_sen_arr[idx]=TAG;
                     this.$el.childNodes[idx].className = TAG;
                     this.$el.childNodes[idx].style.color = t_color;
+                    head2.save_func();
                     return;
                 }
                 if(this.click_start_end[0] != -1){
