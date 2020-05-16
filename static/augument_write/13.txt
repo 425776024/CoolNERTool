@@ -1,0 +1,16 @@
+业	Effect
+绩	Effect
+变	Effect
+动	Effect
+的	O
+主	O
+要	O
+原	T
+因	T
+是	T
+无	Cause
+形	Cause
+资	Cause
+产	Cause
+摊	Cause
+销	Cause

@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>NER标注</title>
+     <link rel="stylesheet" type="text/css" href="/static/styles.css">
     <script src="/static/vue.min.js"></script>
     <script src="/static/axios_min.js"></script>
 </head>
 <body>
-<h1> {[message]} </h1>
+<h1> {[data['message']]} </h1>
+<button><a href="/">Home🏠</a></button>
 <div id="edit">
     <h3>编辑：{{idx}}.txt</h3>
     <textarea style="width:500px;min-height: 80px; " v-model="senetnce"></textarea>
@@ -21,13 +23,12 @@
 var edit_div = new Vue({
         el: '#edit',
         data:{
-            senetnce:{[senetnce|tojson]},
-            idx:{[idx]}
+            senetnce:{[data['senetnce']|tojson]},
+            idx:{[data['idx']]}
         },
         methods: {
             save_sent: function(event) {
-<!--                alert(this.senetnce);-->
-                axios.put('/{[updatelablingurl]}', {
+                axios.put('/{[data['updatelablingurl']]}', {
                     "senetnce":this.senetnce,
                     'idx':this.idx,
                     'label_sen_arr':null

@@ -9,11 +9,11 @@
 </head>
 <body>
 <h2 align="left"> NER 命名实体标注工具</h2>
-<button><a href="/" >Home🏠</a></button>
+<button><a href="/">Home🏠</a></button>
 ||
 <button><a href="/static/{[data['dpath']]}/{[data['idx']]}.txt" download="">点击下载：{[data['idx']]}.txt</a></button>
 ||
-<button><a href="/editfile/{[data['idx']]}" >编辑{[data['idx']]}.txt</a></button>
+<button><a href="/editfile/{[data['idx']]}">编辑{[data['idx']]}.txt</a></button>
 
 <div id="head1" align="center">
     <h2>{[data['idx']]} / {[data['all_num']]}</h2>
@@ -36,7 +36,6 @@
     <button v-on:click="pre_button_func" class="sty_button">往前 <</button>
     <button v-on:click="back_button_func" class="sty_button">往后 ></button>
 </div>
-
 
 <script type="text/javascript">
 idx = {[data['idx']]}|0;
@@ -100,6 +99,7 @@ var head2 = new Vue({
             }
         }
     });
+
 
 var sentence_text = new Vue({
         el: '#senetnce',
@@ -166,6 +166,9 @@ for (var i=0;i<sentence_text.senetnce_tag_list.length;i++){
 <!--    console.log(i+'：'+ppi.className);-->
 <!--    console.log('span：'+ppi.childNodes[0].innerText);-->
 <!--};-->
+
+
+
 
 
 </script>

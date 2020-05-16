@@ -3,7 +3,9 @@
 
 
 import os.path
-from config import data_write
+from src.config import data_write, augument, augument_size, augument_data_write
+from src.DataAugmentation_utils import DataAugmentation
+from collections import defaultdict
 
 
 class Util:
@@ -11,12 +13,26 @@ class Util:
         self.write_path = data_write
         self.sentence_map = {}
         self.sentence_labeling_map = {}
+        self.augument = augument
+        self.augument_data_write = augument_data_write
+        if augument:
+            if not os.path.exists(augument_data_write):
+                os.mkdir(augument_data_write)
+            self.dataAugmentation = DataAugmentation(data_write)
         self.load_path_data()
 
     def load_path_data(self):
+        fi = 0
         for name in os.listdir(self.write_path):
             idx = int(name.split('.')[0])
             f_name = os.path.join(self.write_path, name)
+            if self.augument:
+                data_sentence_arr, data_label_arr = self.dataAugmentation.augment(f_name, augument_size)
+                for i in range(len(data_sentence_arr)):
+                    s_arr, l_arr = data_sentence_arr[i], data_label_arr[i]
+                    write(s_arr, l_arr, os.path.join(self.augument_data_write, str(fi) + '.txt'))
+                    fi += 1
+
             token_arr, tag_arr = get_txt(f_name, return_token=True)
             sentence = ''.join(token_arr)
             self.sentence_map[idx] = sentence
@@ -58,9 +74,9 @@ def get_txt(path, return_token=False):
         return tag_arr
 
 
-def write(sent: list, label_ing: list, path: str):
+def write(sent_arr: list, label_arr: list, path: str):
     with open(path, mode='w') as file:
-        for i, lb in enumerate(label_ing):
-            token = sent[i]
-            tag = label_ing[i]
+        for i, lb in enumerate(label_arr):
+            token = sent_arr[i]
+            tag = label_arr[i]
             file.write(token + '\t' + tag + '\n')

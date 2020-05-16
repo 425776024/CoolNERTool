@@ -18,7 +18,6 @@ templates = Jinja2Templates(directory="templates")
 util = Util()
 
 
-
 class Item(BaseModel):
     idx: int
     senetnce: str = None
@@ -35,16 +34,29 @@ async def help(request: Request):
     return templates.TemplateResponse("help.html", {"request": request, "message": '使用帮助'})
 
 
-
 @app.get('/editfile/{idx}')
 async def config(request: Request, idx: int = 0):
     senetnce, label_sen_arr = util.get_sentence(idx)
-    return templates.TemplateResponse("edit.html", {'idx': idx,
-                                                    "request": request,
-                                                    "message": '编辑',
-                                                    "senetnce": senetnce,
-                                                    "updatelablingurl": "updatelabling"
-                                                    })
+    data = {'idx': idx,
+            "message": '编辑',
+            "senetnce": senetnce,
+            "updatelablingurl": "updatelabling"
+            }
+
+    return templates.TemplateResponse("edit.html", {"data": data, "request": request})
+
+
+def get_lab_color(label_sen_arr):
+    label_sen_arr = [c.split('-')[1] if '-' in c else c for c in label_sen_arr]
+    label_color = [tag_color_mapping[c] for c in label_sen_arr]
+    return label_color
+
+
+def get_senetnce_tag_list(label_sen_arr, senetnce_arr):
+    idx_list = list(range(len(label_sen_arr)))
+    label_color = get_lab_color(label_sen_arr)
+    senetnce_tag_list = list(zip(senetnce_arr, label_sen_arr, label_color, idx_list))
+    return senetnce_tag_list
 
 
 @app.get('/getlabeling/{idx}')
@@ -52,10 +64,8 @@ async def labeling(request: Request, idx: int = 0):
     senetnce, label_sen_arr = util.get_sentence(idx)
     senetnce_arr = list(senetnce)
 
-    label_color = [tag_color_mapping[c.split('-')[1]] if '-' in c else tag_color_mapping['O'] for c in label_sen_arr]
-    idx_list = list(range(len(label_sen_arr)))
-    senetnce_tag_list = list(zip(senetnce_arr, label_sen_arr, label_color, idx_list))
-    assert len(senetnce) == len(label_sen_arr)
+    senetnce_tag_list = get_senetnce_tag_list(label_sen_arr, senetnce_arr)
+
     data = {
         'idx': idx,
         'all_num': len(util.sentence_map),
