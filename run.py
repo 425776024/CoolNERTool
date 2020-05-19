@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import List
-from config import dpath, taginfo, tag_color_mapping
+from src.config import dpath, taginfo, tag_color_mapping
 from src.utils import Util
 
 app = FastAPI()
