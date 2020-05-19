@@ -2,10 +2,10 @@
   "descrip_config": {
     "tag_name": "标签，标签展示名称",
     "tag_color_mapping": "tag的展示颜色",
-    "augument": "【是否】开启NER数据增强",
-    "augument_size": "每条数据最多增强多少条",
     "write_data_path": "用于【标注的数据】的路径",
-    "augument_data_path": "用于给标注的数据，【做增强的输出路径】（确保此时标注路径下文件有标注了，不是全O）"
+    "augument": "！！！【是否】开启NER数据增强",
+    "augument_size": "！！！每条数据最多增强【多少条】",
+    "augument_data_path": "！！！用于给标注的数据，【做增强的输出路径】（确保此时标注路径下文件有标注了，不是全O）"
   },
   "config": {
     "tag_name": [
@@ -22,9 +22,9 @@
       "CauseEffect": "#ffa500",
       "T": "#0ff10f"
     },
-    "augument" : true,
-    "augument_size" : 3,
     "write_data_path" : "write",
+    "augument" : false,
+    "augument_size" : 3,
     "augument_data_path" : "augument_write"
   }
 }

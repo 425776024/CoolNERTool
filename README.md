@@ -6,7 +6,7 @@ Chrome浏览器端端NER实体标注工具，基于Vue + python的fastAPI
 - 3.```static/write ```下的是NER数据文件（给出案例），可自己修改
 - 4.可以拿模型预测的BIO数据作为输入
 - 5.可在线编辑标注文字
-- 6.```可以对NER数据做简单的数据增强```（配置config.json中的true/false）
+- 6.```可以对NER数据做简单的数据增强```（配置config.json中的true/false，会以3.中的NER数据文件目录为基础数据）
 
 
 ## 配置 config
