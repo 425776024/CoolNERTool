@@ -11,38 +11,7 @@ Chrome浏览器端端NER实体标注工具，基于Vue + python的fastAPI
 
 ## 配置 config
 编辑 `/config.json`内含有详细案例，和描述
-```json
-{
-  "descrip_config": {
-    "tag_name": "标签，标签展示名称",
-    "tag_color_mapping": "tag的展示颜色",
-    "write_data_path": "用于【标注的数据】的路径",
-    "augument": "！！！【是否】开启NER数据增强",
-    "augument_size": "！！！每条数据最多增强【多少条】",
-    "augument_data_path": "！！！用于给标注的数据，【做增强的输出路径】（确保此时标注路径下文件有标注了，不是全O）"
-  },
-  "config": {
-    "tag_name": [
-      ["O","0清除"],
-      ["Cause","Cause原因"],
-      ["Effect","Effect结果"],
-      ["CauseEffect","CauseEffect既是原因又是结果"],
-      ["T","因果触发词"]
-    ],
-    "tag_color_mapping": {
-      "O": "black",
-      "Cause": "#FF0000",
-      "Effect": "#0000FF",
-      "CauseEffect": "#ffa500",
-      "T": "#0ff10f"
-    },
-    "write_data_path" : "write",
-    "augument" : false,
-    "augument_size" : 3,
-    "augument_data_path" : "augument_write"
-  }
-}
-```
+
 ## 运行 run
 ```shell
 pip install requirements.txt
