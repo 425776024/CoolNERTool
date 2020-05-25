@@ -58,7 +58,7 @@ class Util:
 
 
 def get_txt(path, return_token=False):
-    with open(path, mode='r') as file:
+    with open(path, mode='r',encoding='utf-8') as file:
         tag_arr = []
         token_arr = []
         for line in file.readlines():
@@ -75,7 +75,7 @@ def get_txt(path, return_token=False):
 
 
 def write(sent_arr: list, label_arr: list, path: str):
-    with open(path, mode='w') as file:
+    with open(path, mode='w',encoding='utf-8') as file:
         for i, lb in enumerate(label_arr):
             token = sent_arr[i]
             tag = label_arr[i]
