@@ -1,11 +1,11 @@
 {
-  "descrip_config": {
-    "tag_name": "标签，标签展示名称",
-    "tag_color_mapping": "tag的展示颜色",
-    "write_data_path": "用于【标注的数据】的路径",
-    "augument": "！！！【是否】开启NER数据增强",
-    "augument_size": "！！！每条数据最多增强【多少条】",
-    "augument_data_path": "！！！用于给标注的数据，【做增强的输出路径】（确保此时标注路径下文件有标注了，不是全O）"
+  "只是描述，描述config怎么配，下面是配置的样例": {
+    "tag_name": "标签，标签展示名称。如下面的配置样式",
+    "tag_color_mapping": "tag的展示颜色。如下面的配置样式",
+    "write_data_path": "static目录下，用于【标注的数据】的路径的目录。如下面的配置样式",
+    "augument": "！！！【是否】开启NER数据增强。如下面的配置样式",
+    "augument_size": "！！！每条数据最多增强【多少条】。如下面的配置样式",
+    "augument_data_path": "！！！static目录下，用于给标注的数据，【做增强的输出路径】的目录（确保此时标注路径下文件有标注了，不是全O）。如下面的配置样式"
   },
   "config": {
     "tag_name": [

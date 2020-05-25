@@ -1,0 +1,12 @@
+销	B-Effect
+量	I-Effect
+增	I-Effect
+加	I-Effect
+的	O
+主	O
+要	O
+原	B-T
+因	I-T
+是	I-T
+北	B-Cause
+京	I-Cause
