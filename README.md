@@ -1,5 +1,6 @@
 # [CoolNERTool](https://github.com/425776024/CoolNERTool)
 
+开源不易，全网唯一，轻快好用，一键运行，**欢迎star**
 Chrome浏览器端端NER实体标注工具，基于Vue + python的fastAPI
 - 1.可多人协作共同标注（内网）
 - 2.支持模型预标注：读取/写入文件完全一致
@@ -17,7 +18,7 @@ Chrome浏览器端端NER实体标注工具，基于Vue + python的fastAPI
 pip install requirements.txt
 ```
 ```shell
-python run.py
+python run.py （可以修改里面的ip为主机ip，这样内网可共同访问）
 ```
 ## 主界面
 ![](img/home.png)
