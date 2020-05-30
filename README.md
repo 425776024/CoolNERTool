@@ -10,6 +10,8 @@ Chrome浏览器端端NER实体标注工具，基于Vue + python的fastAPI
 - 5.可在线编辑标注文字
 - 6.```可以对NER数据做简单的数据增强```（配置config.json中的true/false，会以3.中的NER数据文件目录为基础数据）
 
+## bilibili视频介绍
+[https://www.bilibili.com/video/BV1d5411s7KS/](https://www.bilibili.com/video/BV1d5411s7KS/)
 
 ## 配置 config
 编辑 `/config.json`内含有详细案例，和描述
